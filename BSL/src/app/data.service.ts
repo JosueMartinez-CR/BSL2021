@@ -4,6 +4,8 @@ import { beneficiarios } from './modules/beneficiarios';
 import { cuentas } from './modules/cuentas';
 import { usuario } from './modules/usuario';
 import { clientes } from './modules/clientes';
+import { estados } from './modules/estados';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -68,6 +70,7 @@ export class DataService {
     return this.response.post(this.API + '/banco/benefs', data);
   }
 
+
   eliminar_beneficiario(Identificacion: string, value: number) {
     let data = { Identificacion, value };
     return this.response.put(this.API + '/banco/' + Identificacion, data);
@@ -99,6 +102,45 @@ export class DataService {
     return this.response.post(this.API + '/banco/' + Identificacion1, data2);
   }
 
+//-----------------------------
+
+insertar_objetivo(
+  NumeroCuenta:string,
+  FechaInicio:string,
+  FechaFin:string,
+  Costo:number,
+  Objetivo:string,
+  Saldo:number,
+  Interes:number,
+  outCodeResult:number = 201
+) {
+  let data = {
+    NumeroCuenta,
+    FechaInicio,
+    FechaFin,
+    Costo,
+    Objetivo,
+    Saldo,
+    Interes,
+    outCodeResult 
+  };
+
+  console.log("yeah: ",
+  NumeroCuenta,
+  FechaInicio,
+  FechaFin,
+  Costo,
+  Objetivo,
+  Saldo,
+  Interes,
+  outCodeResult);
+
+  return this.response.post(this.API + '/banco/addObjetivo', data);
+}
+
+get_estados(cuenta:string) {
+  return this.response.get<estados[]>(this.API + '/banco/estados/'+cuenta);
+}
 
 
 

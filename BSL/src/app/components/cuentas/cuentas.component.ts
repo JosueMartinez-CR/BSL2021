@@ -38,6 +38,14 @@ export class CuentasComponent implements OnInit {
     this.router.navigate(['/home', this.userId]);
   }
 
+  goToAddObj(account:string){
+    this.router.navigate(['/addObj', this.userId,account]);
+  }
+
+  goToEstados(account:string){
+    this.router.navigate(['/accounts?/3stad0s',account]);
+  }
+
   async LoadAccounts(ident: string) {
     if (this.admin == 0) {
       this.dataService.get_cuentas_cliente(this.userId).

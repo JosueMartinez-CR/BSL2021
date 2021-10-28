@@ -77,7 +77,8 @@ export class AddBeneficiarieComponent implements OnInit {
       parseInt(this.parent),
       this.porcentaje).toPromise().
       then((res: any) => {
-        if (res == null) {
+       
+        if (res != null) {
           Swal.fire('¡Beneficiario agregado!', '', 'success')
           this.router.navigate(['/beneficiarios', this.userId, 0]);
         }

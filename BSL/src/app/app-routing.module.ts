@@ -7,6 +7,8 @@ import { HomeComponent } from './components/home/home.component';
 import { BeneficiariosComponent } from './components/beneficiarios/beneficiarios.component';
 import { AddBeneficiarieComponent } from 'src/app/components/formsComponents/add-beneficiarie/add-beneficiarie.component';
 import { ModifyBenefComponent } from './components/formsComponents/modify-benef/modify-benef.component';
+import { AddObjetivoComponent } from './components/formsComponents/add.objetivo/add.objetivo.component';
+import { EstadosComponent } from './components/estados/estados.component';
 const routes: Routes = [
 
   {
@@ -46,6 +48,16 @@ const routes: Routes = [
   {
     path: 'modify%benef/:id/:user',
     component: ModifyBenefComponent
+  },
+
+  {
+    path:'addObj/:id/:account',
+    component:AddObjetivoComponent
+  },
+  
+  {
+    path: 'accounts?/3stad0s/:accountNumber',
+    component:EstadosComponent
   }
 
 

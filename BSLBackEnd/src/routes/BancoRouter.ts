@@ -151,7 +151,7 @@ class BancoRouter {
     let { Identificacion } = req.params;
     new mssql.ConnectionPool(config).connect().then((pool: any) => {
       return pool.request()
-        .input('Identificacion', mssql.VARCHAR(32), "117370445")
+        .input('Identificacion', mssql.VARCHAR(32), Identificacion)
         .execute('GetCuentasDeCliente')
     }).then((result: { recordset: any; }) => {
       let rows = result.recordset;
@@ -259,6 +259,83 @@ class BancoRouter {
 
 
 
+//--------------------
+  async insertar_cuentaObjetivo(req: Request, res: Response) {
+    let { NumeroCuenta,
+          FechaInicio,
+          FechaFin,
+          Costo,
+          Objetivo,
+          Saldo,
+          Interes,
+          outCodeResult 
+        } = req.body;
+
+         
+    new mssql.ConnectionPool(config).connect().then((pool: any) => {
+      return pool.request()
+
+        .input('NumeroCuenta',mssql.VARCHAR(32),NumeroCuenta)
+        .input('FechaInicio',mssql.VARCHAR(32),FechaInicio)
+        .input('FechaFin',mssql.VARCHAR(32),FechaFin)
+        .input('Costo',mssql.INT,Costo)
+        .input('Objetivo',mssql.VARCHAR(64),Objetivo)
+        .input('Saldo',mssql.INT,Saldo)
+        .input('Interes',mssql.INT,Interes)
+        .input('outCodeResult',mssql.INT,123)
+
+        .execute('InsertarCuentaObjetivo')
+
+    }).then((result: { recordset: any; }) => {
+      let rows = result.recordset
+      console.log("ROWS " + rows)
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      res.status(201).json(rows);
+      mssql.close();
+    }).catch((err: any) => {
+      res.status(500).send({ message: `${err}` })
+      mssql.close();
+    });
+  }
+
+
+  async get_estados(req: Request, res: Response) {
+    let { NumeroCuenta } = req.params;
+    new mssql.ConnectionPool(config).connect().then((pool: any) => {
+      return pool.request()
+        .input('NumeroCuenta', mssql.VARCHAR(32), NumeroCuenta)
+        .execute('GetEstadosCuenta')
+    }).then((result: { recordset: any; }) => {
+      let rows = result.recordset;
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      res.status(200).json(rows);
+      mssql.close();
+    }).catch((err: any) => {
+      res.status(500).send({ message: `${err}` })
+      mssql.close();
+    });
+  }
+
+
+
+  async get_movimientos(req: Request, res: Response) {
+    let { IdEstadoCuenta } = req.params;
+    new mssql.ConnectionPool(config).connect().then((pool: any) => {
+      return pool.request()
+        .input('IdEstadoCuenta', mssql.INT, IdEstadoCuenta)
+
+        .execute('GetMovimientosDeEstado')
+    }).then((result: { recordset: any; }) => {
+      let rows = result.recordset;
+      res.setHeader('Access-Control-Allow-Origin', '*')
+      res.status(200).json(rows);
+      mssql.close();
+    }).catch((err: any) => {
+      res.status(500).send({ message: `${err}` })
+      mssql.close();
+    });
+  }
+
 
   //routes that consult in the FrontEnd
   routes() {
@@ -275,6 +352,11 @@ class BancoRouter {
     this.router.post("/benefs", this.insertar_beneficiario);
     this.router.put("/:Identificacion", this.eliminar_beneficiario);
     this.router.post("/:IdentificacionAntigua", this.modificar_beneficiario);
+    
+    //-----------------------------
+    this.router.post("/addObjetivo", this.insertar_cuentaObjetivo);
+    this.router.get("/estados/:NumeroCuenta",this.get_estados);
+    this.router.get("/estados/:NumeroCuenta",this.get_movimientos);
   }
 
 }

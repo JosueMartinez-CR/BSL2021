@@ -20,7 +20,9 @@ import { LoginComponent } from './components/login/login.component';
 import { BeneficiariosComponent } from './components/beneficiarios/beneficiarios.component';
 import { AddBeneficiarieComponent } from 'src/app/components/formsComponents/add-beneficiarie/add-beneficiarie.component';
 import { ModifyBenefComponent } from './components/formsComponents/modify-benef/modify-benef.component';
-
+import { AcObjetivoComponent } from './components/ac-objetivo/ac-objetivo.component';
+import { AddObjetivoComponent } from './components/formsComponents/add.objetivo/add.objetivo.component';
+import { EstadosComponent } from './components/estados/estados.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,10 @@ import { ModifyBenefComponent } from './components/formsComponents/modify-benef/
     LoginComponent,
     BeneficiariosComponent,
     AddBeneficiarieComponent,
-    ModifyBenefComponent
+    ModifyBenefComponent,
+    AcObjetivoComponent,
+    AddObjetivoComponent,
+    EstadosComponent
   ],
   imports: [
     BrowserModule,

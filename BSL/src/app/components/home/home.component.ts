@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       // console.log(user);
       this.listUser = user;
       this.nombre = this.listUser[0].Nombre;
-      this.Identificacion = this.listUser[0].ValorDocumentoIdentidad;
+      this.Identificacion = this.ID;
       if (this.listUser[0].Administrador == true) {
         this.admin = 1;
         this.itsAdmin = true;
